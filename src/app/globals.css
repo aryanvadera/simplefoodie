@@ -1,26 +1,233 @@
 @import "tailwindcss";
 
+/* =========================================================
+   The Simple Foodie — Brand System
+   Editorial cafe aesthetic. Warm. Confident. Quietly premium.
+   ========================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --linen: #f5efe6;          /* Page background — warm cream */
+  --bone:  #faf7f2;          /* Lifted surface */
+  --paper: #ffffff;
+  --grain: #ede4d6;          /* Subtle warm divider */
+
+  /* Brand */
+  --forest:    #1f3a2e;      /* Primary deep green */
+  --forest-2:  #14271f;      /* Pressed / dark accent */
+  --sage:      #8fa890;      /* Soft secondary green */
+  --moss:      #2f5544;      /* Mid green for accents */
+
+  /* Accent */
+  --honey:     #c8a961;      /* Warm gold for highlights */
+  --honey-2:   #a98842;      /* Pressed gold */
+  --terracotta:#b15a3d;      /* Warmth in food photography */
+
+  /* Ink */
+  --ink:       #14120e;      /* Primary text — almost-black with warmth */
+  --ink-2:     #3a3630;      /* Body text */
+  --ink-3:     #6b6357;      /* Muted */
+  --ink-4:     #a39a8c;      /* Subdued labels */
+
+  /* Semantic */
+  --success: #2f7d50;
+  --error:   #b53d2e;
+
+  /* Radius / motion tokens */
+  --radius-sm: 6px;
+  --radius:    14px;
+  --radius-lg: 24px;
+  --radius-xl: 36px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --shadow-soft: 0 1px 2px rgba(20,18,14,0.04), 0 8px 32px -12px rgba(20,18,14,0.12);
+  --shadow-lift: 0 2px 4px rgba(20,18,14,0.06), 0 24px 48px -16px rgba(20,18,14,0.18);
+
+  --background: var(--linen);
+  --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-linen: var(--linen);
+  --color-bone:  var(--bone);
+  --color-paper: var(--paper);
+  --color-grain: var(--grain);
+
+  --color-forest:    var(--forest);
+  --color-forest-2:  var(--forest-2);
+  --color-sage:      var(--sage);
+  --color-moss:      var(--moss);
+
+  --color-honey:     var(--honey);
+  --color-honey-2:   var(--honey-2);
+  --color-terracotta:var(--terracotta);
+
+  --color-ink:   var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+
+  --font-sans:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ==========================================================
+   Base
+   ========================================================== */
+
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "ss02", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+/* Display headings get optical-sized Fraunces */
+.font-display {
+  font-family: var(--font-display);
+  font-feature-settings: "ss01", "ss02";
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--forest);
+  color: var(--linen);
+}
+
+/* Subtle grain layer that lifts the feel from "flat color" to "made by humans" */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.65 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ==========================================================
+   Reusable utility classes
+   ========================================================== */
+
+@utility container-x {
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  width: 100%;
+  max-width: 80rem;
+}
+
+@media (min-width: 768px) {
+  .container-x { padding-inline: 2rem; }
+}
+
+@media (min-width: 1280px) {
+  .container-x { padding-inline: 3rem; }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+@utility hairline {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--ink) 18%, transparent) 20%,
+    color-mix(in srgb, var(--ink) 18%, transparent) 80%,
+    transparent 100%
+  );
+}
+
+/* ==========================================================
+   Animations — subtle, purposeful
+   ========================================================== */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ken-burns {
+  0%   { transform: scale(1.04) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-0.5%, -0.5%); }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.anim-fade-up    { animation: fade-up 800ms var(--ease-out-expo) both; }
+.anim-fade-in    { animation: fade-in 1200ms var(--ease-out-expo) both; }
+.anim-ken-burns  { animation: ken-burns 14s var(--ease-out-quart) both; }
+
+/* Marquee track helper */
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+/* Image placeholder — pretty shimmer if a photo isn't ready yet */
+.placeholder-shimmer {
+  background:
+    linear-gradient(
+      100deg,
+      color-mix(in srgb, var(--forest) 22%, transparent) 0%,
+      color-mix(in srgb, var(--forest) 35%, transparent) 50%,
+      color-mix(in srgb, var(--forest) 22%, transparent) 100%
+    ),
+    var(--forest);
+  background-size: 200% 100%;
+  animation: shimmer 4.5s linear infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Pretty scrollbars on macOS */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--linen); }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--forest) 40%, transparent);
+  border-radius: 999px;
+  border: 3px solid var(--linen);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--forest) 70%, transparent);
 }
