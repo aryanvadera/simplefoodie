@@ -6,6 +6,8 @@ import { Footer } from "@/components/site/Footer";
 import { StickyOrderBar } from "@/components/site/StickyOrderBar";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Cursor } from "@/components/ui/Cursor";
+import { CartProvider } from "@/lib/cart";
+import { CartShell } from "@/components/cart/CartShell";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -56,12 +58,15 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-linen text-ink">
-        <ScrollProgress />
-        <Cursor />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <StickyOrderBar />
+        <CartProvider>
+          <ScrollProgress />
+          <Cursor />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <StickyOrderBar />
+          <CartShell />
+        </CartProvider>
       </body>
     </html>
   );

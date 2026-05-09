@@ -1,9 +1,10 @@
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Tilt } from "@/components/ui/Tilt";
+import { AddToOrderButton } from "@/components/cart/AddToOrderButton";
 import { menu } from "@/lib/menu";
 
 // Pull a few hero items by name for the homepage feature row.
@@ -69,12 +70,11 @@ export function FeaturedItems() {
                         {item.tag}
                       </span>
                     )}
-                    <span
-                      aria-hidden
-                      className="absolute bottom-4 right-4 inline-grid size-10 place-items-center rounded-full bg-paper text-forest shadow-[0_8px_24px_-12px_rgba(20,18,14,0.5)] translate-y-3 opacity-0 group-hover/c:translate-y-0 group-hover/c:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                    >
-                      <Plus className="size-4" strokeWidth={2} />
-                    </span>
+                    <AddToOrderButton
+                      item={item}
+                      variant="icon"
+                      className="absolute bottom-4 right-4"
+                    />
                   </div>
                   <div className="p-5 md:p-6">
                     <div className="flex items-baseline justify-between gap-3">

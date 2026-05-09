@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { site } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { CartIcon } from "@/components/cart/CartIcon";
 import { Wordmark } from "./Wordmark";
 import { cn } from "@/lib/cn";
 
@@ -102,6 +103,7 @@ export function Header() {
                 </Button>
               </Magnetic>
             </div>
+            <CartIcon />
             <button
               onClick={() => setMobileOpen(true)}
               className="md:hidden inline-grid size-10 place-items-center rounded-full bg-ink/5 hover:bg-ink/10 transition"

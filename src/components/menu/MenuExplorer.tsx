@@ -6,6 +6,7 @@ import { LayoutGrid, List, Search, X } from "lucide-react";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Tilt } from "@/components/ui/Tilt";
 import { CountUp } from "@/components/ui/CountUp";
+import { AddToOrderButton } from "@/components/cart/AddToOrderButton";
 import { menu, menuCategories, type MenuCategory } from "@/lib/menu";
 import { cn } from "@/lib/cn";
 
@@ -184,6 +185,11 @@ export function MenuExplorer() {
                           {item.tag}
                         </span>
                       )}
+                      <AddToOrderButton
+                        item={item}
+                        variant="icon"
+                        className="absolute bottom-3 right-3"
+                      />
                     </div>
                     <div className="p-5">
                       <span
@@ -248,9 +254,12 @@ export function MenuExplorer() {
                 aria-hidden
                 className="hidden md:block flex-1 self-end mb-2 border-b border-dotted border-ink/20"
               />
-              <span className="font-mono text-sm text-forest font-medium whitespace-nowrap shrink-0">
-                {item.price}
-              </span>
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="font-mono text-sm text-forest font-medium whitespace-nowrap">
+                  {item.price}
+                </span>
+                <AddToOrderButton item={item} variant="pill" />
+              </div>
             </motion.li>
           ))}
         </ul>
