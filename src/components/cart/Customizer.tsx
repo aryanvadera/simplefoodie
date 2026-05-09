@@ -113,8 +113,10 @@ function CustomizerInner({
             caption={item.name}
             alt={item.name}
             rounded="none"
-            className="aspect-[16/9] sm:aspect-[5/2] w-full"
+            className="aspect-[4/3] sm:aspect-[16/10] w-full"
+            imgClassName="object-top"
             kenBurns={false}
+            sizes="(min-width: 640px) 36rem, 100vw"
           />
           <button
             onClick={onClose}
