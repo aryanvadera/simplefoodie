@@ -16,9 +16,9 @@ export function Story() {
       <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center relative">
         <div className="lg:col-span-5 relative order-2 lg:order-1">
           <ImageFrame
-            src="/images/story/founders.jpeg"
-            caption="Founders portrait"
-            alt="The team behind The Simple Foodie"
+            src="/images/story/founders.jpg"
+            caption="Croissants & pastries, laminated in-house"
+            alt="A spread of fresh-baked croissants and pastries"
             className="aspect-[4/5] w-full"
             rounded="xl"
             kenBurns
@@ -26,9 +26,9 @@ export function Story() {
           />
           <div className="absolute -bottom-6 -right-6 hidden lg:block w-48 aspect-square">
             <ImageFrame
-              src="/images/story/coffee.jpg"
+              src="/images/story/coffee.jpeg"
               caption="Coffee detail"
-              alt="A perfectly poured coffee"
+              alt="A freshly brewed coffee"
               rounded="lg"
               className="w-full h-full shadow-[var(--shadow-lift)]"
               sizes="192px"
