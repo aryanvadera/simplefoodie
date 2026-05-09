@@ -78,15 +78,12 @@ export function CartDrawer() {
                     <li key={line.id} className="flex gap-4">
                       <div className="size-20 shrink-0 rounded-xl overflow-hidden">
                         <ImageFrame
-                          src={
-                            menuItem?.image
-                              ? `/images/menu/${menuItem.image}`
-                              : undefined
-                          }
+                          src={menuItem?.image}
                           caption={line.itemName}
                           alt={line.itemName}
                           rounded="none"
                           className="size-full"
+                          sizes="80px"
                         />
                       </div>
                       <div className="flex-1 min-w-0">

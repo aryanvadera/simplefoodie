@@ -146,15 +146,12 @@ export function CheckoutClient() {
                   >
                     <div className="size-20 md:size-24 shrink-0 rounded-xl overflow-hidden">
                       <ImageFrame
-                        src={
-                          menuItem?.image
-                            ? `/images/menu/${menuItem.image}`
-                            : undefined
-                        }
+                        src={menuItem?.image}
                         caption={line.itemName}
                         alt={line.itemName}
                         rounded="none"
                         className="size-full"
+                        sizes="(min-width: 768px) 96px, 80px"
                       />
                     </div>
                     <div className="flex-1 min-w-0 flex flex-col">

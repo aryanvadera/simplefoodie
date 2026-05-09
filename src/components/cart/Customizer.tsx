@@ -109,7 +109,7 @@ function CustomizerInner({
         {/* Header */}
         <div className="relative">
           <ImageFrame
-            src={item.image ? `/images/menu/${item.image}` : undefined}
+            src={item.image}
             caption={item.name}
             alt={item.name}
             rounded="none"
