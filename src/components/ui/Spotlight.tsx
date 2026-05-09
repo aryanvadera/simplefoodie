@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from "react";
 import { motion, useMotionTemplate, useMotionValue, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
+import { useFinePointer } from "@/lib/usePointer";
 
 /**
  * Adds a subtle pointer-tracked spotlight to dark sections.
@@ -20,12 +21,14 @@ export function Spotlight({
   size?: number;
 }) {
   const reduce = useReducedMotion();
+  const fine = useFinePointer();
+  const inactive = reduce || !fine;
   const ref = useRef<HTMLDivElement | null>(null);
   const x = useMotionValue(-9999);
   const y = useMotionValue(-9999);
 
   function onMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (reduce) return;
+    if (inactive) return;
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     x.set(e.clientX - rect.left);
@@ -47,7 +50,7 @@ export function Spotlight({
       className={cn("relative", className)}
     >
       {children}
-      {!reduce && (
+      {!inactive && (
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0"

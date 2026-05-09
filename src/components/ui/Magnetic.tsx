@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
+import { useFinePointer } from "@/lib/usePointer";
 
 /**
  * Wraps a single child element so it gently pulls toward the cursor
@@ -23,13 +24,15 @@ export function Magnetic({
 }) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const reduce = useReducedMotion();
+  const fine = useFinePointer();
+  const inactive = reduce || !fine;
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { damping: 18, stiffness: 240, mass: 0.4 });
   const sy = useSpring(y, { damping: 18, stiffness: 240, mass: 0.4 });
 
   function onMove(e: React.PointerEvent<HTMLSpanElement>) {
-    if (reduce) return;
+    if (inactive) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();

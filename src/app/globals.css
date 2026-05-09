@@ -83,7 +83,15 @@
 
 * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Prevent iOS Safari font scaling on rotation. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Avoid horizontal overflow flashes on mobile from any decorative bleed.
+     Setting on <html> keeps <body> as the natural scroll container. */
+  overflow-x: clip;
+}
 
 body {
   background: var(--background);
@@ -91,6 +99,14 @@ body {
   font-family: var(--font-sans);
   font-feature-settings: "ss01", "ss02", "cv11";
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  /* Faster taps on touch devices, no 300ms double-tap-zoom delay. */
+  touch-action: manipulation;
+}
+
+/* Honour iPhone safe-area inset for the floating bottom CTA. */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* Display headings get optical-sized Fraunces */

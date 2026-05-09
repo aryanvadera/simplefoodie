@@ -15,10 +15,13 @@ import { ImageFrame } from "@/components/ui/ImageFrame";
 import { OpenStatus } from "@/components/ui/OpenStatus";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { CountUp } from "@/components/ui/CountUp";
+import { useFinePointer } from "@/lib/usePointer";
 import { site } from "@/lib/site";
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const fine = useFinePointer();
+  const parallaxOff = reduce || !fine;
   const ref = useRef<HTMLElement | null>(null);
 
   // Mouse-driven parallax for the image stack on desktop.
@@ -44,7 +47,7 @@ export function Hero() {
   const stackOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
 
   function onPointerMove(e: React.PointerEvent<HTMLElement>) {
-    if (reduce) return;
+    if (parallaxOff) return;
     const r = ref.current?.getBoundingClientRect();
     if (!r) return;
     mx.set((e.clientX - (r.left + r.width / 2)) / r.width);
@@ -69,12 +72,12 @@ export function Hero() {
       {/* Decorative blurred blobs that very subtly track the cursor */}
       <motion.div
         aria-hidden
-        style={reduce ? undefined : { x: t2x, y: t2y }}
+        style={parallaxOff ? undefined : { x: t2x, y: t2y }}
         className="pointer-events-none absolute -top-32 -right-24 size-[40rem] rounded-full bg-honey/15 blur-[120px]"
       />
       <motion.div
         aria-hidden
-        style={reduce ? undefined : { x: t1x, y: t1y }}
+        style={parallaxOff ? undefined : { x: t1x, y: t1y }}
         className="pointer-events-none absolute top-[40%] -left-32 size-[30rem] rounded-full bg-sage/20 blur-[120px]"
       />
 
@@ -201,7 +204,7 @@ export function Hero() {
           >
             {/* Main image — pulls toward cursor */}
             <motion.div
-              style={reduce ? undefined : { x: t1x, y: t1y }}
+              style={parallaxOff ? undefined : { x: t1x, y: t1y }}
               className="relative"
               data-cursor="view"
             >
@@ -222,7 +225,7 @@ export function Hero() {
               initial={reduce ? false : { opacity: 0, y: 24 }}
               animate={reduce ? undefined : { opacity: 1, y: 0 }}
               transition={{ delay: 0.95, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              style={reduce ? undefined : { x: t3x, y: t3y }}
+              style={parallaxOff ? undefined : { x: t3x, y: t3y }}
               className="absolute -left-6 md:-left-12 bottom-12 w-36 md:w-48 aspect-square"
             >
               <ImageFrame
@@ -240,7 +243,7 @@ export function Hero() {
               initial={reduce ? false : { opacity: 0, y: 24 }}
               animate={reduce ? undefined : { opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              style={reduce ? undefined : { x: t2x, y: t2y }}
+              style={parallaxOff ? undefined : { x: t2x, y: t2y }}
               className="hidden md:block absolute -right-6 -top-6 w-40 aspect-[3/4]"
             >
               <ImageFrame

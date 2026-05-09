@@ -8,7 +8,7 @@ export function Story() {
       {/* big watermark word, decorative */}
       <span
         aria-hidden
-        className="pointer-events-none absolute right-4 -top-4 md:right-12 md:top-2 font-display italic text-[18vw] md:text-[12rem] leading-none text-ink/[0.04] select-none"
+        className="pointer-events-none absolute right-4 -top-2 md:right-12 md:top-2 font-display italic text-[clamp(4rem,12vw,12rem)] leading-none text-ink/[0.04] select-none"
       >
         simple
       </span>

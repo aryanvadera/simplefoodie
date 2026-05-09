@@ -10,6 +10,7 @@ import {
   useReducedMotion,
 } from "motion/react";
 import { cn } from "@/lib/cn";
+import { useFinePointer } from "@/lib/usePointer";
 
 /**
  * Subtle 3D card tilt that follows the cursor. Adds a spotlight glow that
@@ -29,6 +30,8 @@ export function Tilt({
   glow?: boolean;
 }) {
   const reduce = useReducedMotion();
+  const fine = useFinePointer();
+  const inactive = reduce || !fine;
   const ref = useRef<HTMLDivElement | null>(null);
   const px = useMotionValue(0.5);
   const py = useMotionValue(0.5);
@@ -48,7 +51,7 @@ export function Tilt({
   const glowBg = useMotionTemplate`radial-gradient(320px circle at ${glowX} ${glowY}, color-mix(in srgb, var(--honey) 30%, transparent) 0%, transparent 60%)`;
 
   function onMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (reduce) return;
+    if (inactive) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -69,7 +72,7 @@ export function Tilt({
       onPointerMove={onMove}
       onPointerLeave={reset}
       style={
-        reduce
+        inactive
           ? undefined
           : {
               rotateX: rx,
@@ -81,7 +84,7 @@ export function Tilt({
       className={cn("relative", className)}
     >
       {children}
-      {glow && !reduce && (
+      {glow && !inactive && (
         <motion.span
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-soft-light"

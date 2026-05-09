@@ -34,7 +34,7 @@ export function StickyOrderBar() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-4 inset-x-3 sm:inset-x-auto sm:right-6 sm:left-auto z-[55]"
+          className="fixed bottom-4 inset-x-3 sm:inset-x-auto sm:right-6 sm:left-auto z-[55] safe-bottom"
         >
           <div className="relative mx-auto sm:mx-0 max-w-md flex items-stretch gap-1 rounded-full bg-forest text-linen p-1 pl-5 shadow-[0_24px_48px_-16px_rgba(20,18,14,0.5)] border border-forest-2/40 backdrop-blur-sm">
             <span className="hidden sm:flex items-center gap-2 pr-3 text-xs">
@@ -44,7 +44,7 @@ export function StickyOrderBar() {
             <Link
               href="/menu"
               data-cursor="order"
-              className="group/cta flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-full bg-honey text-forest-2 px-5 py-2.5 text-sm font-medium hover:bg-linen transition"
+              className="group/cta flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-full bg-honey text-forest-2 px-5 py-3 text-sm font-medium hover:bg-linen transition"
             >
               <span>Order ahead</span>
               <ArrowRight className="size-3.5 transition-transform group-hover/cta:translate-x-0.5" strokeWidth={2.25} />
@@ -59,7 +59,7 @@ export function StickyOrderBar() {
             </a>
             <button
               onClick={() => setDismissed(true)}
-              className="inline-grid size-9 place-items-center rounded-full text-linen/60 hover:text-linen hover:bg-linen/10 transition"
+              className="inline-grid size-11 place-items-center rounded-full text-linen/60 hover:text-linen hover:bg-linen/10 transition shrink-0"
               aria-label="Dismiss"
             >
               <X className="size-3.5" strokeWidth={2} />
