@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
-import { ImageIcon } from "lucide-react";
+import { PlaceholderArt } from "./PlaceholderArt";
 
 type ImageFrameProps = {
   /** Path under /public, e.g. "/images/hero.jpg". If absent, shows a labelled placeholder. */
@@ -23,9 +23,9 @@ type ImageFrameProps = {
 };
 
 /**
- * Renders a real image when `src` is provided, otherwise a tasteful
- * forest-green shimmering placeholder labelled with the alt/caption,
- * so layouts hold their composition before the client supplies photos.
+ * Renders a real image when `src` is provided, otherwise an editorial
+ * placeholder built from a hashed palette + hand-drawn food glyph so the
+ * grid reads as a curated spread until photography is supplied.
  */
 export function ImageFrame({
   src,
@@ -74,23 +74,10 @@ export function ImageFrame({
           )}
         />
       ) : (
-        <Placeholder label={caption ?? alt} />
+        <PlaceholderArt label={caption ?? alt} />
       )}
       {/* Soft inner edge to soften images against light backgrounds */}
       <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-ink/5" />
-    </div>
-  );
-}
-
-function Placeholder({ label }: { label: string }) {
-  return (
-    <div className="absolute inset-0 placeholder-shimmer flex items-center justify-center">
-      <div className="flex flex-col items-center gap-2 text-linen/80 text-center px-6">
-        <ImageIcon className="size-8 opacity-60" strokeWidth={1.25} />
-        <span className="text-[0.65rem] tracking-[0.22em] uppercase font-medium opacity-90">
-          {label}
-        </span>
-      </div>
     </div>
   );
 }

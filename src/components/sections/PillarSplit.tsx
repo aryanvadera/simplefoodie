@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
+import { Tilt } from "@/components/ui/Tilt";
 
 const pillars = [
   {
@@ -41,89 +42,103 @@ export function PillarSplit() {
       <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
         {pillars.map((p, i) => (
           <Reveal key={i} delay={i * 100} className="group/p block">
-            <Link
-              href={p.href}
-              className={`relative block rounded-[2rem] overflow-hidden p-6 md:p-8 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 ${
-                p.accent
-                  ? "bg-forest text-linen hover:bg-forest-2"
-                  : "bg-bone text-ink hover:bg-paper"
-              } shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-lift)]`}
-            >
-              <div className="flex items-start justify-between gap-6">
-                <div className="flex-1">
-                  <p
-                    className={`eyebrow ${
-                      p.accent ? "text-honey" : "text-forest/70"
-                    }`}
-                  >
-                    {p.eyebrow}
-                  </p>
-                  <h3
-                    className={`mt-5 font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] tracking-tight whitespace-pre-line ${
-                      p.accent ? "text-linen" : "text-ink"
-                    }`}
-                  >
-                    {p.title}
-                  </h3>
-                </div>
+            <Tilt max={3} glow={false} className="h-full">
+              <Link
+                href={p.href}
+                data-cursor="grow"
+                className={`relative block h-full rounded-[2rem] overflow-hidden p-6 md:p-8 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 ${
+                  p.accent
+                    ? "bg-forest text-linen hover:bg-forest-2"
+                    : "bg-bone text-ink hover:bg-paper"
+                } shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-lift)]`}
+              >
+                {/* Index marker */}
                 <span
-                  className={`shrink-0 inline-grid size-12 place-items-center rounded-full transition-all duration-500 ease-out group-hover/p:rotate-45 ${
-                    p.accent
-                      ? "bg-honey text-forest-2"
-                      : "bg-forest text-linen"
+                  className={`absolute top-6 right-7 font-mono text-[0.6rem] tracking-[0.32em] uppercase ${
+                    p.accent ? "text-honey/70" : "text-ink-4"
                   }`}
                 >
-                  <ArrowUpRight className="size-5" strokeWidth={2} />
+                  {String(i + 1).padStart(2, "0")} / 02
                 </span>
-              </div>
 
-              <ImageFrame
-                caption={p.image.caption}
-                alt={p.image.alt}
-                rounded="xl"
-                kenBurns
-                className="mt-8 aspect-[16/10]"
-              />
-
-              <p
-                className={`mt-8 max-w-md leading-relaxed ${
-                  p.accent ? "text-linen/80" : "text-ink-2"
-                }`}
-              >
-                {p.body}
-              </p>
-
-              <ul
-                className={`mt-6 grid gap-2 text-sm ${
-                  p.accent ? "text-linen/85" : "text-ink-2"
-                }`}
-              >
-                {p.bullets.map((b) => (
-                  <li key={b} className="flex items-center gap-3">
-                    <span
-                      aria-hidden
-                      className={`size-1 rounded-full ${
-                        p.accent ? "bg-honey" : "bg-forest"
+                <div className="flex items-start justify-between gap-6">
+                  <div className="flex-1">
+                    <p
+                      className={`eyebrow ${
+                        p.accent ? "text-honey" : "text-forest/70"
                       }`}
-                    />
-                    {b}
-                  </li>
-                ))}
-              </ul>
+                    >
+                      {p.eyebrow}
+                    </p>
+                    <h3
+                      className={`mt-5 font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] tracking-tight whitespace-pre-line ${
+                        p.accent ? "text-linen" : "text-ink"
+                      }`}
+                    >
+                      {p.title}
+                    </h3>
+                  </div>
+                  <span
+                    className={`shrink-0 inline-grid size-12 place-items-center rounded-full transition-all duration-500 ease-out group-hover/p:rotate-45 ${
+                      p.accent
+                        ? "bg-honey text-forest-2"
+                        : "bg-forest text-linen"
+                    }`}
+                  >
+                    <ArrowUpRight className="size-5" strokeWidth={2} />
+                  </span>
+                </div>
 
-              <div
-                className={`mt-8 inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 ${
-                  p.accent
-                    ? "text-honey group-hover/p:text-linen"
-                    : "text-forest group-hover/p:text-forest-2"
-                }`}
-              >
-                <span>{p.cta}</span>
-                <span className="inline-block transition-transform duration-300 group-hover/p:translate-x-1">
-                  →
-                </span>
-              </div>
-            </Link>
+                <div className="mt-8 relative overflow-hidden rounded-[2rem]">
+                  <ImageFrame
+                    caption={p.image.caption}
+                    alt={p.image.alt}
+                    rounded="xl"
+                    kenBurns
+                    className="aspect-[16/10] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/p:scale-[1.04]"
+                  />
+                </div>
+
+                <p
+                  className={`mt-8 max-w-md leading-relaxed ${
+                    p.accent ? "text-linen/80" : "text-ink-2"
+                  }`}
+                >
+                  {p.body}
+                </p>
+
+                <ul
+                  className={`mt-6 grid gap-2 text-sm ${
+                    p.accent ? "text-linen/85" : "text-ink-2"
+                  }`}
+                >
+                  {p.bullets.map((b) => (
+                    <li key={b} className="flex items-center gap-3">
+                      <span
+                        aria-hidden
+                        className={`size-1 rounded-full ${
+                          p.accent ? "bg-honey" : "bg-forest"
+                        }`}
+                      />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+
+                <div
+                  className={`mt-8 inline-flex items-center gap-2 text-sm font-medium transition-all duration-300 ${
+                    p.accent
+                      ? "text-honey group-hover/p:text-linen"
+                      : "text-forest group-hover/p:text-forest-2"
+                  }`}
+                >
+                  <span>{p.cta}</span>
+                  <span className="inline-block transition-transform duration-300 group-hover/p:translate-x-1">
+                    →
+                  </span>
+                </div>
+              </Link>
+            </Tilt>
           </Reveal>
         ))}
       </div>

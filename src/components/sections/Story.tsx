@@ -1,10 +1,19 @@
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
+import { CountUp } from "@/components/ui/CountUp";
 
 export function Story() {
   return (
     <section id="story" className="container-x py-24 md:py-32 relative">
-      <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      {/* big watermark word, decorative */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute right-4 -top-4 md:right-12 md:top-2 font-display italic text-[18vw] md:text-[12rem] leading-none text-ink/[0.04] select-none"
+      >
+        simple
+      </span>
+
+      <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center relative">
         <div className="lg:col-span-5 relative order-2 lg:order-1">
           <ImageFrame
             caption="Founders portrait"
@@ -20,6 +29,11 @@ export function Story() {
               rounded="lg"
               className="w-full h-full shadow-[var(--shadow-lift)]"
             />
+          </div>
+          {/* Decorative tag */}
+          <div className="hidden lg:flex absolute -top-6 -left-6 items-center gap-2 bg-paper border border-ink/8 rounded-full px-4 py-2 shadow-[var(--shadow-soft)]">
+            <span className="size-1.5 rounded-full bg-honey" />
+            <span className="font-mono text-[0.6rem] tracking-[0.28em] uppercase text-ink-3">Since day one</span>
           </div>
         </div>
 
@@ -56,24 +70,35 @@ export function Story() {
 
           <Reveal delay={240}>
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
-              {[
-                { kpi: "100+", label: "Items, made fresh daily" },
-                { kpi: "6", label: "Days a week" },
-                { kpi: "$2.50", label: "Hashbrowns. Always." },
-              ].map((s) => (
-                <div key={s.label} className="border-l border-ink/15 pl-4">
-                  <dt className="font-display text-3xl text-ink leading-none">
-                    {s.kpi}
-                  </dt>
-                  <dd className="text-[0.7rem] tracking-wide text-ink-3 mt-2 leading-snug">
-                    {s.label}
-                  </dd>
-                </div>
-              ))}
+              <Stat
+                top={<CountUp value={100} suffix="+" />}
+                label="Items, made fresh daily"
+              />
+              <Stat
+                top={<CountUp value={6} />}
+                label="Days a week, open"
+              />
+              <Stat
+                top={<CountUp value={2.5} prefix="$" decimals={2} />}
+                label="Hashbrowns. Always."
+              />
             </div>
           </Reveal>
         </div>
       </div>
     </section>
+  );
+}
+
+function Stat({ top, label }: { top: React.ReactNode; label: string }) {
+  return (
+    <div className="border-l border-ink/15 pl-4">
+      <dt className="font-display text-3xl text-ink leading-none tabular-nums">
+        {top}
+      </dt>
+      <dd className="text-[0.7rem] tracking-wide text-ink-3 mt-2 leading-snug">
+        {label}
+      </dd>
+    </div>
   );
 }

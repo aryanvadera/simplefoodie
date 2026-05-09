@@ -1,15 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { site } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
+import { Magnetic } from "@/components/ui/Magnetic";
 import { Wordmark } from "./Wordmark";
 import { cn } from "@/lib/cn";
 
+function isActive(itemHref: string, pathname: string): boolean {
+  // Hash-only links resolve relative to home.
+  if (itemHref.startsWith("/#")) return pathname === "/";
+  if (itemHref === "/") return pathname === "/";
+  return pathname === itemHref || pathname.startsWith(itemHref + "/");
+}
+
 export function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -28,6 +38,12 @@ export function Header() {
     };
   }, [mobileOpen]);
 
+  // Close drawer on route change
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing drawer state with the URL is the intended effect
+    setMobileOpen(false);
+  }, [pathname]);
+
   return (
     <>
       <header
@@ -39,21 +55,36 @@ export function Header() {
         )}
       >
         <div className="container-x flex items-center justify-between gap-6">
-          <Link href="/" className="-mx-1 px-1 py-1 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-honey/80">
+          <Link
+            href="/"
+            data-cursor="grow"
+            className="-mx-1 px-1 py-1 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-honey/80"
+          >
             <Wordmark />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
-            {site.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="relative px-4 py-2 text-sm font-medium text-ink-2 hover:text-ink rounded-full transition-colors duration-200 group/nav"
-              >
-                <span>{item.label}</span>
-                <span className="absolute left-1/2 -translate-x-1/2 bottom-1 h-px w-0 bg-forest transition-all duration-300 ease-out group-hover/nav:w-5" />
-              </Link>
-            ))}
+            {site.nav.map((item) => {
+              const active = isActive(item.href, pathname);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 group/nav",
+                    active ? "text-ink" : "text-ink-2 hover:text-ink",
+                  )}
+                >
+                  <span>{item.label}</span>
+                  <span
+                    className={cn(
+                      "absolute left-1/2 -translate-x-1/2 bottom-1 h-px bg-forest transition-all duration-300 ease-out",
+                      active ? "w-5" : "w-0 group-hover/nav:w-5",
+                    )}
+                  />
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -65,9 +96,11 @@ export function Header() {
               <span className="font-medium tracking-wide">{site.contact.phone}</span>
             </a>
             <div className="hidden md:block">
-              <Button href="/catering" size="md" variant="primary" withArrow>
-                Get a quote
-              </Button>
+              <Magnetic>
+                <Button href="/catering" size="md" variant="primary" withArrow>
+                  Get a quote
+                </Button>
+              </Magnetic>
             </div>
             <button
               onClick={() => setMobileOpen(true)}
@@ -113,22 +146,37 @@ export function Header() {
               </div>
 
               <nav className="mt-10 flex flex-col">
-                {site.nav.map((item, i) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 * i + 0.1, duration: 0.4 }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block py-4 border-b border-ink/8 font-display text-3xl text-ink"
+                {site.nav.map((item, i) => {
+                  const active = isActive(item.href, pathname);
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.05 * i + 0.1, duration: 0.4 }}
                     >
-                      {item.label}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(
+                          "group/m flex items-baseline justify-between py-4 border-b border-ink/8 font-display text-3xl",
+                          active ? "text-forest" : "text-ink",
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        <span
+                          aria-hidden
+                          className={cn(
+                            "font-sans not-italic text-xs tracking-[0.28em] uppercase opacity-0 -translate-x-2 transition-all",
+                            "group-hover/m:opacity-60 group-hover/m:translate-x-0",
+                          )}
+                        >
+                          →
+                        </span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </nav>
 
               <div className="mt-auto pt-8 space-y-3">

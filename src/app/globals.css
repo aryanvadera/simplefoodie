@@ -180,6 +180,25 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
@@ -191,8 +210,15 @@ body {
 
 /* Marquee track helper */
 .marquee-track {
-  animation: marquee 38s linear infinite;
+  animation: marquee 42s linear infinite;
 }
+
+.marquee-track--reverse {
+  animation: marquee-reverse 56s linear infinite;
+}
+
+.anim-float    { animation: float-y 6s ease-in-out infinite; }
+.anim-spin-slow{ animation: spin-slow 22s linear infinite; }
 
 /* Image placeholder — pretty shimmer if a photo isn't ready yet */
 .placeholder-shimmer {

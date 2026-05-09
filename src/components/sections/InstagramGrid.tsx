@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
 import { Instagram } from "@/components/icons/Social";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
@@ -7,12 +7,12 @@ import { site } from "@/lib/site";
 // Placeholder grid — six tiles ready to be wired to the IG feed
 // (Instagram Basic Display API, Elfsight free tier, or an oEmbed grid).
 const tiles = [
-  "Fresh croissants on the rack",
-  "Sandwich plate close-up",
-  "Latte art detail",
-  "Slider box overhead",
-  "Catering setup at desk",
-  "Sweet treats grid",
+  { caption: "Fresh croissants on the rack",  likes: "248" },
+  { caption: "Sandwich plate close-up",        likes: "184" },
+  { caption: "Latte art detail",               likes: "312" },
+  { caption: "Slider box overhead",            likes: "265" },
+  { caption: "Catering setup at desk",         likes: "201" },
+  { caption: "Sweet treats grid",              likes: "421" },
 ];
 
 export function InstagramGrid() {
@@ -36,6 +36,7 @@ export function InstagramGrid() {
               href={site.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
+              data-cursor="grow"
               className="group/cta inline-flex items-center gap-2 text-sm font-medium text-forest hover:text-forest-2 transition"
             >
               <Instagram className="size-4" strokeWidth={1.75} />
@@ -46,25 +47,38 @@ export function InstagramGrid() {
         </div>
 
         <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
-          {tiles.map((caption, i) => (
+          {tiles.map(({ caption, likes }, i) => (
             <Reveal key={i} delay={i * 60}>
               <a
                 href={site.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-cursor="view"
                 className="group/t relative block aspect-square overflow-hidden rounded-2xl"
               >
                 <ImageFrame
                   caption={caption}
                   alt={caption}
                   rounded="none"
-                  className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/t:scale-105"
+                  className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/t:scale-110"
                 />
-                <div className="absolute inset-0 bg-forest-2/0 group-hover/t:bg-forest-2/40 transition-colors duration-500 grid place-items-center">
-                  <Instagram
-                    className="size-6 text-linen opacity-0 group-hover/t:opacity-100 transition-opacity duration-500"
-                    strokeWidth={1.5}
-                  />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest-2/80 via-forest-2/20 to-transparent opacity-0 group-hover/t:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 p-4 flex flex-col justify-between opacity-0 group-hover/t:opacity-100 transition-opacity duration-500">
+                  <div className="flex justify-end">
+                    <Instagram
+                      className="size-5 text-linen"
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  <div className="flex items-end justify-between text-linen">
+                    <span className="font-display italic text-sm leading-tight max-w-[70%]">
+                      {caption}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs">
+                      <Heart className="size-3 fill-current" strokeWidth={0} />
+                      <span className="font-mono tabular-nums">{likes}</span>
+                    </span>
+                  </div>
                 </div>
               </a>
             </Reveal>

@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "motion/react";
 import { Quote, Star } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -30,6 +34,7 @@ const reviews = [
 ];
 
 export function Testimonials() {
+  const [active, setActive] = useState<number | null>(null);
   return (
     <section className="container-x py-24 md:py-32">
       <SectionHeader
@@ -43,16 +48,42 @@ export function Testimonials() {
         }
       />
 
-      <div className="mt-16 grid md:grid-cols-3 gap-6">
+      {/* Average rating badge */}
+      <Reveal delay={120}>
+        <div className="mt-10 flex items-center justify-center gap-3">
+          <div className="flex items-center gap-1 text-honey">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="size-4 fill-current" strokeWidth={0} />
+            ))}
+          </div>
+          <span className="font-display text-lg text-ink leading-none">4.9</span>
+          <span className="text-sm text-ink-3">average · across reviews</span>
+        </div>
+      </Reveal>
+
+      <div className="mt-12 grid md:grid-cols-3 gap-6">
         {reviews.map((r, i) => (
           <Reveal key={i} delay={i * 100}>
-            <article className="relative h-full bg-bone rounded-3xl p-7 md:p-8 border border-ink/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+            <motion.article
+              onPointerEnter={() => setActive(i)}
+              onPointerLeave={() => setActive(null)}
+              animate={{
+                scale: active === null || active === i ? 1 : 0.97,
+                opacity: active === null || active === i ? 1 : 0.55,
+              }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="relative h-full bg-bone rounded-3xl p-7 md:p-8 border border-ink/5 transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] hover:bg-paper hover:border-forest/20"
+            >
+              {/* Decorative corner index */}
+              <span className="absolute top-5 left-7 font-mono text-[0.6rem] tracking-[0.32em] uppercase text-ink-4">
+                {String(i + 1).padStart(2, "0")} / {String(reviews.length).padStart(2, "0")}
+              </span>
               <Quote
                 className="absolute top-6 right-6 size-10 text-forest/15"
                 strokeWidth={1.25}
                 aria-hidden
               />
-              <div className="flex items-center gap-1 text-honey">
+              <div className="mt-6 flex items-center gap-1 text-honey">
                 {Array.from({ length: r.rating }).map((_, k) => (
                   <Star key={k} className="size-3.5 fill-current" strokeWidth={0} />
                 ))}
@@ -71,7 +102,7 @@ export function Testimonials() {
                   <p className="text-xs text-ink-3 mt-0.5">{r.role}</p>
                 </div>
               </div>
-            </article>
+            </motion.article>
           </Reveal>
         ))}
       </div>
