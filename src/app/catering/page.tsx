@@ -101,20 +101,24 @@ export default function CateringPage() {
           <div className="lg:col-span-6 relative">
             <Reveal>
               <ImageFrame
+                src="/images/catering/page-hero.png"
                 caption="Catering hero — slider boxes & sandwiches"
                 alt="Catering platters arranged on a board"
                 className="aspect-[4/5] w-full"
                 rounded="xl"
                 kenBurns
                 priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </Reveal>
             <div className="absolute -left-8 -bottom-8 hidden md:block w-44 aspect-square">
               <ImageFrame
+                src="/images/catering/page-hero-granola.png"
                 caption="Granola pots"
                 alt="Granola yoghurt pots"
                 rounded="lg"
                 className="w-full h-full shadow-[var(--shadow-lift)]"
+                sizes="176px"
               />
             </div>
           </div>

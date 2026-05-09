@@ -206,6 +206,7 @@ export function Hero() {
               data-cursor="view"
             >
               <ImageFrame
+                src="/images/hero/main.jpeg"
                 caption="Hero — sandwiches & coffee on board"
                 alt="The Simple Foodie hero — fresh sandwiches and coffee"
                 className="aspect-[4/5] w-full"
@@ -225,10 +226,12 @@ export function Hero() {
               className="absolute -left-6 md:-left-12 bottom-12 w-36 md:w-48 aspect-square"
             >
               <ImageFrame
-                caption="Latte detail"
-                alt="A perfectly poured latte"
+                src="/images/hero/coffee.jpeg"
+                caption="Coffee detail"
+                alt="A freshly brewed coffee"
                 rounded="lg"
                 className="w-full h-full shadow-[var(--shadow-lift)]"
+                sizes="192px"
               />
             </motion.div>
 
@@ -241,10 +244,12 @@ export function Hero() {
               className="hidden md:block absolute -right-6 -top-6 w-40 aspect-[3/4]"
             >
               <ImageFrame
+                src="/images/hero/almond-croissant.png"
                 caption="Almond Croissant"
                 alt="A laminated almond croissant"
                 rounded="lg"
                 className="w-full h-full shadow-[var(--shadow-lift)]"
+                sizes="160px"
               />
             </motion.div>
 

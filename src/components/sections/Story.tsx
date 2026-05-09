@@ -16,18 +16,22 @@ export function Story() {
       <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center relative">
         <div className="lg:col-span-5 relative order-2 lg:order-1">
           <ImageFrame
+            src="/images/story/founders.jpeg"
             caption="Founders portrait"
             alt="The team behind The Simple Foodie"
             className="aspect-[4/5] w-full"
             rounded="xl"
             kenBurns
+            sizes="(min-width: 1024px) 42vw, 100vw"
           />
           <div className="absolute -bottom-6 -right-6 hidden lg:block w-48 aspect-square">
             <ImageFrame
+              src="/images/story/coffee.jpg"
               caption="Coffee detail"
               alt="A perfectly poured coffee"
               rounded="lg"
               className="w-full h-full shadow-[var(--shadow-lift)]"
+              sizes="192px"
             />
           </div>
           {/* Decorative tag */}

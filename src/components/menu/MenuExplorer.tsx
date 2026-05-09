@@ -171,11 +171,13 @@ export function MenuExplorer() {
                   <article className="relative h-full bg-paper rounded-2xl overflow-hidden border border-ink/5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/m:-translate-y-1 group-hover/m:shadow-[var(--shadow-lift)]">
                     <div className="relative overflow-hidden">
                       <ImageFrame
+                        src={item.image}
                         caption={item.name}
                         alt={item.name}
                         className="aspect-[5/4] w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/m:scale-[1.04]"
                         rounded="none"
                         kenBurns
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       />
                       {item.tag && (
                         <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-honey/95 backdrop-blur text-forest-2 text-[0.6rem] tracking-[0.18em] uppercase font-medium px-2.5 py-1">

@@ -98,19 +98,23 @@ export function CateringCallout() {
         <div className="lg:col-span-5 relative">
           <Reveal>
             <ImageFrame
+              src="/images/catering/callout-main.png"
               caption="Catering platter"
               alt="A beautifully arranged catering platter"
               className="aspect-[4/5] w-full"
               rounded="xl"
               kenBurns
+              sizes="(min-width: 1024px) 42vw, 100vw"
             />
           </Reveal>
           <div className="absolute -left-6 -bottom-6 hidden md:block w-44 aspect-square">
             <ImageFrame
+              src="/images/catering/callout-sliders.png"
               caption="Sliders"
               alt="Slider box detail"
               rounded="lg"
               className="w-full h-full shadow-[var(--shadow-lift)]"
+              sizes="176px"
             />
           </div>
 

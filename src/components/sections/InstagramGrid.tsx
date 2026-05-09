@@ -4,15 +4,15 @@ import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
 
-// Placeholder grid — six tiles ready to be wired to the IG feed
+// Six recent IG stills, swappable later for an embed
 // (Instagram Basic Display API, Elfsight free tier, or an oEmbed grid).
 const tiles = [
-  { caption: "Fresh croissants on the rack",  likes: "248" },
-  { caption: "Sandwich plate close-up",        likes: "184" },
-  { caption: "Latte art detail",               likes: "312" },
-  { caption: "Slider box overhead",            likes: "265" },
-  { caption: "Catering setup at desk",         likes: "201" },
-  { caption: "Sweet treats grid",              likes: "421" },
+  { caption: "Fresh croissants on the rack", likes: "248", src: "/images/instagram/croissants.png" },
+  { caption: "Sandwich plate close-up",       likes: "184", src: "/images/instagram/sandwich.jpg" },
+  { caption: "Latte art detail",              likes: "312", src: "/images/instagram/latte.jpg" },
+  { caption: "Slider box overhead",           likes: "265", src: "/images/instagram/sliders.png" },
+  { caption: "Catering setup at desk",        likes: "201", src: "/images/instagram/desk.jpg" },
+  { caption: "Sweet treats grid",             likes: "421", src: "/images/instagram/sweets.jpg" },
 ];
 
 export function InstagramGrid() {
@@ -47,7 +47,7 @@ export function InstagramGrid() {
         </div>
 
         <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
-          {tiles.map(({ caption, likes }, i) => (
+          {tiles.map(({ caption, likes, src }, i) => (
             <Reveal key={i} delay={i * 60}>
               <a
                 href={site.social.instagram}
@@ -57,10 +57,12 @@ export function InstagramGrid() {
                 className="group/t relative block aspect-square overflow-hidden rounded-2xl"
               >
                 <ImageFrame
+                  src={src}
                   caption={caption}
                   alt={caption}
                   rounded="none"
                   className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/t:scale-110"
+                  sizes="(min-width: 1024px) 16vw, (min-width: 768px) 33vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-forest-2/80 via-forest-2/20 to-transparent opacity-0 group-hover/t:opacity-100 transition-opacity duration-500" />
                 <div className="absolute inset-0 p-4 flex flex-col justify-between opacity-0 group-hover/t:opacity-100 transition-opacity duration-500">

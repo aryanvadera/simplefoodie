@@ -56,11 +56,13 @@ export function FeaturedItems() {
                 >
                   <div className="relative overflow-hidden">
                     <ImageFrame
+                      src={item.image}
                       caption={item.name}
                       alt={item.name}
                       className="aspect-[4/5] w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/c:scale-[1.04]"
                       rounded="none"
                       kenBurns
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     />
                     {item.tag && (
                       <span className="absolute top-4 left-4 inline-flex items-center rounded-full bg-honey/95 backdrop-blur text-forest-2 text-[0.62rem] tracking-[0.18em] uppercase font-medium px-2.5 py-1">

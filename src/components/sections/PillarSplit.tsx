@@ -12,7 +12,7 @@ const pillars = [
       "Coffee at 7. Schnitzel sandwiches by 11. Tiramisu in the afternoon. Order ahead and skip the queue, or wander in and pick the day's special off the counter.",
     href: "/menu",
     cta: "See the menu",
-    image: { caption: "Café interior", alt: "Inside The Simple Foodie cafe" },
+    image: { caption: "Café interior", alt: "Inside The Simple Foodie cafe", src: "/images/hero/pillar-cafe.jpeg" },
     bullets: [
       "Single-origin coffee",
       "Handmade sandwiches & wraps",
@@ -26,7 +26,7 @@ const pillars = [
       "Whether it's a Monday board meeting or a Thursday team lunch — order by 1 pm and we'll have a fresh, beautifully boxed platter at your Docklands desk by morning.",
     href: "/catering",
     cta: "Get a quote",
-    image: { caption: "Catering boxes", alt: "Corporate catering boxes" },
+    image: { caption: "Catering boxes", alt: "Corporate catering boxes", src: "/images/hero/pillar-catering.jpg" },
     bullets: [
       "Next-day delivery in Docklands",
       "Vegan, vegetarian & GF options",
@@ -91,11 +91,13 @@ export function PillarSplit() {
 
                 <div className="mt-8 relative overflow-hidden rounded-[2rem]">
                   <ImageFrame
+                    src={p.image.src}
                     caption={p.image.caption}
                     alt={p.image.alt}
                     rounded="xl"
                     kenBurns
                     className="aspect-[16/10] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/p:scale-[1.04]"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                   />
                 </div>
 

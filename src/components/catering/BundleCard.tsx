@@ -14,11 +14,13 @@ export function BundleCard({ bundle }: { bundle: Bundle }) {
       >
         <div className="relative overflow-hidden">
           <ImageFrame
+            src={bundle.image}
             caption={bundle.name}
             alt={bundle.name}
             rounded="none"
             className="aspect-[4/3] w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/b:scale-[1.04]"
             kenBurns
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           />
           {bundle.tag && (
             <span className="absolute top-4 left-4 inline-flex items-center rounded-full bg-honey/95 backdrop-blur text-forest-2 text-[0.62rem] tracking-[0.18em] uppercase font-medium px-2.5 py-1">
